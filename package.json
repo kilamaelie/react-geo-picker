@@ -1,6 +1,6 @@
 {
   "name": "@kilamaelie/react-geo-picker",
-  "version": "1.0.1",
+  "version": "1.0.3",
   "description": "Lightweight, responsive React modal components and utilities for selecting countries, cities, and country codes.",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
@@ -10,8 +10,7 @@
       "types": "./dist/index.d.ts",
       "import": "./dist/index.mjs",
       "require": "./dist/index.js"
-    },
-    "./style.css": "./dist/index.css"
+    }
   },
   "files": [
     "dist"

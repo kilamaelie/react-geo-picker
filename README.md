@@ -276,3 +276,15 @@ dependencies automatically.
 ## 📄 License
 
 Distributed under the **MIT License**. See `LICENSE` for more information.
+
+## Publishing
+
+Releases are published to npm through GitHub Actions using npm trusted publishing
+with OpenID Connect (OIDC). To configure the trust once, open the package's
+**Trusted Publishers** settings on npm and add:
+
+- Repository: `kilamaelie/react-geo-picker`
+- Workflow: `.github/workflows/publish.yml`
+
+After that, create and push a `v*` tag for the package version. The workflow
+builds the package and publishes it with provenance without an npm token.

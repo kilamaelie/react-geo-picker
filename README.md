@@ -1,6 +1,6 @@
-# react-geo-picker 🌍
+# @kilamaelie/react-geo-picker 🌍
 
-[![NPM version](https://img.shields.io/npm/v/react-geo-picker.svg?style=flat-square)](https://npmjs.org/package/react-geo-picker) [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg?style=flat-square)](https://opensource.org/licenses/MIT) [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
+[![NPM version](https://img.shields.io/npm/v/%40kilamaelie%2Freact-geo-picker.svg?style=flat-square)](https://www.npmjs.com/package/@kilamaelie/react-geo-picker) [![License: ISC](https://img.shields.io/badge/License-ISC-blue.svg?style=flat-square)](LICENSE) [![TypeScript](https://img.shields.io/badge/TypeScript-Ready-blue?style=flat-square&logo=typescript)](https://www.typescriptlang.org/) [![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS-38B2AC?style=flat-square&logo=tailwind-css)](https://tailwindcss.com/)
 
 A lightweight, fully responsive, and accessible React package containing modal components and utilities for selecting **Countries**, **Cities**, and **Phone Number Calling Codes**. 
 
@@ -23,19 +23,52 @@ Built from the ground up with **TypeScript**, **Tailwind CSS**, and **Radix UI**
 Install the package via your preferred package manager:
 
 ```bash
-npm install react-geo-picker
+npm install @kilamaelie/react-geo-picker
 # or
-yarn add react-geo-picker
+yarn add @kilamaelie/react-geo-picker
 # or
-pnpm add react-geo-picker
+pnpm add @kilamaelie/react-geo-picker
 ```
 
-### Peer & Host Dependencies
+### Peer Dependencies
 Ensure your host application has the following installed:
 * `react` (^18.0.0 || ^19.0.0)
 * `react-dom` (^18.0.0 || ^19.0.0)
-* `tailwindcss` (configured in your project)
 * `lucide-react` (used for UI icons)
+
+### Styling
+
+The package includes compiled CSS, so Tailwind CSS is **not required** in the host
+application. Import the stylesheet once in your application entry file:
+
+```tsx
+import '@kilamaelie/react-geo-picker/style.css';
+```
+
+If your application already uses Tailwind, you can use its own generated utilities
+instead. Make sure your Tailwind setup scans the package output so the component
+classes are included in your application CSS. For Tailwind v3, add the package to
+`content`:
+
+```js
+// tailwind.config.js
+export default {
+  content: [
+    './src/**/*.{js,ts,jsx,tsx}',
+    './node_modules/@kilamaelie/react-geo-picker/dist/**/*.{js,ts}',
+  ],
+}
+```
+
+With Tailwind v4, add the package source to your CSS using `@source` if your setup
+does not scan dependencies automatically:
+
+```css
+@import "tailwindcss";
+@source "../node_modules/@kilamaelie/react-geo-picker/dist";
+```
+
+Restart the Vite or Next.js development server after changing Tailwind scanning paths.
 
 ---
 
@@ -46,7 +79,7 @@ Allows users to pick a country name from an alphabetized, scrollable list comple
 
 ```tsx
 import { useState } from 'react';
-import { CountryModal } from 'react-geo-picker';
+import { CountryModal } from '@kilamaelie/react-geo-picker';
 
 export default function CountrySelectDemo() {
   const [isOpen, setIsOpen] = useState(false);
@@ -84,7 +117,7 @@ Dynamically renders the major cities associated with the selected parent country
 
 ```tsx
 import { useState } from 'react';
-import { CitiesModal } from 'react-geo-picker';
+import { CitiesModal } from "@kilamaelie/react-geo-picker";
 
 export default function CitySelectDemo() {
   const [isOpen, setIsOpen] = useState(false);
@@ -123,7 +156,7 @@ Perfect for onboarding flows, authentication inputs, and international telephone
 
 ```tsx
 import { useState } from 'react';
-import { PhoneNumberModal, formatPhoneNumber } from 'react-geo-picker';
+import { PhoneNumberModal, formatPhoneNumber } from "@kilamaelie/react-geo-picker";
 
 export default function PhoneInputDemo() {
   const [isOpen, setIsOpen] = useState(false);
@@ -170,6 +203,24 @@ export default function PhoneInputDemo() {
 
 ## 📚 API Reference
 
+### Public Exports
+
+```tsx
+import {
+  CitiesModal,
+  CountryModal,
+  PhoneNumberModal,
+  countries,
+  formatPhoneNumber,
+} from '@kilamaelie/react-geo-picker';
+```
+
+- `CountryModal`: select a country.
+- `CitiesModal`: select a city for a country.
+- `PhoneNumberModal`: select an international calling code.
+- `countries`: the bundled country and city dataset.
+- `formatPhoneNumber`: strips non-digits and limits input to 15 digits.
+
 ### Component Props
 
 All modal components share an identical and predictable state-handling signature:
@@ -186,6 +237,19 @@ All modal components share an identical and predictable state-handling signature
 - **`formatPhoneNumber(value: string): string`**
   - Strips all non-digit characters from string input.
   - Automatically bounds strings to a maximum of 15 digits conforming to international standard E.164.
+
+### Troubleshooting Vite Imports
+
+If Vite reports `Failed to resolve import "@kilamaelie/react-geo-picker"`, install the
+scoped package name and restart the dev server:
+
+```bash
+npm install @kilamaelie/react-geo-picker@latest
+npm run dev
+```
+
+Do not install or publish `node_modules`; npm installs the package's declared runtime
+dependencies automatically.
 
 ---
 
